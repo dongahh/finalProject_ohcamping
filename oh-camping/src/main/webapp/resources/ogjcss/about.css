@@ -1,0 +1,360 @@
+@charset "UTF-8";
+
+h1{
+	font-weight: bold;
+}
+h2{
+	font-weight: bold;
+}
+
+ul{
+	    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.slick-section{
+	position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+
+
+.roomimage{
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100vh;
+	
+}
+
+
+
+.slick-btn{
+	position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    color: white;
+    border: 1px solid white;
+}
+.left{
+	    left: 20px;
+}
+.right{
+	    right: 20px;
+}
+
+.slick-btn-main{
+	    position: absolute;
+    z-index: 100;
+    width: 100%;
+    top: 47%;
+    transform: translate(0, -50%);
+}
+
+
+
+.roomimages{
+	display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 100px auto;
+    overflow: hidden;
+}
+
+
+
+
+
+
+
+.left{
+	    left: 20px;
+}
+.right{
+	    right: 20px;
+}
+.slick-btn-main{
+	    position: absolute;
+    z-index: 100;
+    width: 100%;
+    top: 47%;
+    transform: translate(0, -50%);
+}
+
+.main-btn{
+	    position: relative;
+    margin-top: 50px;
+    height: 700px;
+}
+	
+
+.facil_detail {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    width: 100%;
+    height: 500px;
+}
+
+.style_bg_facil_1 {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+    background: #fff7f0;
+}
+
+.style_bg_facil_2 {
+    position: absolute;
+    z-index: -1;
+    bottom: 0;
+    left: 10%;
+    width: 60%;
+    height: 60%;
+    background: #fff7f0;
+}
+
+.wrap_facil_img {
+    width: 40%;
+    height: 70%;
+}
+
+
+
+.facil_detail_txt {
+    width: 55%;
+    height: 70%;
+    padding: 10px;
+}
+
+.bor_bottom {
+    padding-bottom: 10px;
+    border-bottom: 2px solid #cd996f;
+}
+
+.tit_intro {
+    display: inline-block;
+    font-size: 40px;
+    font-family: 'Poiret One', cursive;
+    color: #cd996f;
+}
+
+.facil_detail_txt p {
+    width: 100%;
+    margin: 20px 0 30px 0;
+}
+
+.btn_facil_1 {
+    display: inline-block;
+    padding: 20px 55px;
+    font-size: 17px;
+    color: white;
+    background: #dfb99a;
+    border: 1px solid rgb(206, 206, 206);
+    text-transform: uppercase;
+    transition: 300ms;
+}
+
+.style_bg_facil_2 h1 {
+    position: absolute;
+    bottom: 50px;
+    right: 50%;
+    font-size: 35px;
+    font-family: "Poiret One";
+    color: #c4c2c0;
+}
+
+.facil_detail.style2 .wrap_facil_img {
+    margin-left: 45%;
+    margin-top: -100px;
+    height: 100%;
+}
+
+.img_facil {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+}
+
+.about_tit {
+	position: absolute;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    font-family: "Poiret One";
+    font-weight: 100;
+    
+}
+
+.about_tit h1 {
+    position: relative;
+}
+
+.about_tit h3 {
+    position: relative;
+    margin-top: 70px;
+    font-size: 25px;
+    font-weight: 200;
+}
+
+.about_tit::before {
+    content: '';
+    padding: 30px 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.about_tit {
+    position: absolute;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    font-family: "Poiret One";
+    font-weight: 100;
+}
+
+.about_tit h1::before {
+    content: '';
+    position: absolute;
+    bottom: -55px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 1px;
+    height: 45px;
+    background-color: white;
+}
+
+.about_tit h1 {
+    position: relative;
+}
+
+.main_intro {
+    position: relative;
+    padding-top: 150px;
+    text-align: center;
+    font-family: "Nanum Gothic";
+    background: url(../images/main_top.jpg)no-repeat 50% 50%;
+    background-size: 100%;
+}
+
+.main_intro h1 {
+    position: relative;
+    padding: 50px 0 0px 0;
+    font-size: 50px;
+    font-family: "Poiret One";
+}
+
+.main_intro h3 {
+    padding: 30px 0;
+    color: #dfb99a;
+}
+
+.main_intro p {
+    line-height: 2em;
+    color: #969696;
+}
+
+.wrap_main_img.mt_intro1 {
+    margin-top: 100px;
+}
+
+.wrap_main_img {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    height: 600px;
+    overflow: hidden;
+}
+
+.ma_intro_img.ma_img_1 {
+    background: url(../images/about1.jpg)no-repeat 50% 50%;
+    background-size: cover;
+}
+.ma_intro_img.ma_img_2 {
+    background: url(../images/about2.jpg)no-repeat 50% 50%;
+    background-size: cover;
+}
+.ma_intro_img.ma_img_3 {
+    background: url(../images/about3.jpg)no-repeat 50% 50%;
+    background-size: cover;
+}
+
+.ma_intro_txt {
+    display: flex;
+    flex-direction: column;
+    width: 39%;
+    height: 100%;
+}
+
+.intro_txt {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+    font-size: 10px;
+}
+
+.intro_txt h2 {
+    font-size: 2em;
+}
+
+.intro_txt h1 {
+    margin: 10px 0;
+    font-size: 4em;
+    font-family: "Poiret One";
+    letter-spacing: 3px;
+    color: #dfb99a;
+}
+
+.intro_txt p {
+    margin: 30px 0;
+    font-size: 1.3em;
+    line-height: 1.5em;
+}
+
+.intro_img.img1 {
+    background: url(../images/about4.jpg)no-repeat 50% 50%;
+    background-size: cover;
+}
+.intro_img.img2 {
+    background: url(../images/about5.jpg)no-repeat 50% 50%;
+    background-size: cover;
+}
+.intro_img.img3 {
+    background: url(../images/about6.jpg)no-repeat 50% 50%;
+    background-size: cover;
+}
+
+.intro_img {
+    height: 30%;
+}
+
+.ma_intro_img {
+    width: 60%;
+    height: 100%;
+}
+	

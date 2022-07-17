@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reviewdao">
+
+	<select id="getReviewListCount" resultType="int">
+		select count(*) from camp_review
+	</select>
+	
+	<select id="getDeleteReviewListCount" resultType="int">
+		select count(*) from camp_review_delete
+	</select>
+	
+		<select id="getReviewList" parameterType="reviewpagedto" resultType="reviewdto">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by review_no desc) rnum from camp_review b)
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	    
+	   
+	</select>
+	
+			<select id="getDeleteReviewList" parameterType="reviewpagedto" resultType="reviewdto">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by review_no desc) rnum from camp_review_delete b)
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	    
+	   
+	</select>
+	
+	
+	
+	<select id="getReviewCont" parameterType="int" resultType="reviewdto">
+		select * from camp_review where review_no = #{no}
+	</select>
+	
+	
+	<update id="reviewReadCount" parameterType="int">
+		update camp_review set views = views+1 where review_no = #{no}
+	</update>
+	<select id="getReviewSubData" parameterType="String" resultType="reviewsubdto2">
+		select  payment_no from camp_payment where payment_memno = (select member_no from camp_member where mem_id = #{id}) order by payment_orderdate desc
+	</select>
+	
+	<select id="getReviewSubData2" parameterType="int" resultType="String">
+		select  room_name from camp_room where room_no = #{room_no}
+	</select>
+		<select id="getReviewSubData3" parameterType="int" resultType="String">
+		select  room_resdate from camp_room where room_no = #{room_no}
+	</select>
+		<select id="getReviewSubData4" parameterType="int" resultType="reviewsubdto3">
+		select paymentdetail_roomno from camp_paymentdetail where paymentdetail_paymentno = #{pay_no}
+	</select>
+	
+	<insert id="insertReview" parameterType="reviewdto">
+				<selectKey resultType="int" keyProperty="review_no" order="BEFORE">
+			select max(review_no) from camp_review
+		</selectKey>
+		insert into camp_review values(#{review_no} + 1,
+			#{review_id}, #{review_roomname}, 
+				#{review_title}, #{review_cont},
+				to_char(sysdate,'yyyy-mm-dd hh24:mi'),#{review_orderdate}, 0)
+	</insert>
+	
+	<!-- 삭제된 리뷰에 등록 -->
+	<insert id="insertDeleteReview" parameterType="reviewdto">
+				
+		insert into camp_review_delete values(#{review_no},
+			#{review_id}, #{review_roomname}, 
+				#{review_title}, #{review_cont},
+				#{review_date},#{review_orderdate}, #{views})
+	</insert>
+	
+	<delete id="deleteReview" parameterType="int">
+		delete from camp_review where review_no = #{no}
+	</delete>
+	
+	<update id="updateSequence" parameterType="int">
+		update camp_review set review_no = review_no-1 where review_no > #{no}
+	</update>
+	
+	<update id="updateReview" parameterType="reviewdto">
+		update camp_review set review_title = #{review_title} , review_cont = #{review_cont} where review_no = #{review_no}
+	</update>
+	
+		<select id="reviewTitle" resultType="int">
+		select count(*) from camp_review
+			where review_title like '%' || #{keyword} || '%'
+	</select>
+	
+	
+	<select id="reviewCont" resultType="int">
+		select count(*) from camp_review
+			where review_cont like '%' || #{keyword} || '%'
+	</select>
+	
+		<select id="reviewId" resultType="int">
+		select count(*) from camp_review
+			where review_id like '%' || #{keyword} || '%'
+	</select>
+	
+	
+	<select id="reviewTitle_cont" resultType="int">
+		select count(*) from camp_review
+			where review_title like '%' || #{keyword} || '%' or
+			    review_cont like '%' || #{keyword} || '%'
+	</select>
+	
+		<select id="reviewTitle1" parameterType="reviewpagedto" resultType="reviewdto">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by review_no desc) rnum from camp_review b
+					where review_title like '%' || #{keyword} || '%')
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+	<select id="reviewCont1" parameterType="reviewpagedto" resultType="reviewdto">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by review_no desc) rnum from camp_review b
+					where review_cont like '%' || #{keyword} || '%')
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+		<select id="reviewId1" parameterType="reviewpagedto" resultType="reviewdto">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by review_no desc) rnum from camp_review b
+					where review_id like '%' || #{keyword} || '%')
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+	<select id="reviewTitle_cont1" parameterType="reviewpagedto" resultType="reviewdto">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by review_no desc) rnum from camp_review b
+					where review_title like '%' || #{keyword} || '%' or 
+					review_cont like '%' || #{keyword} || '%')
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+	
+		<update id="updateResetSequence" parameterType="int">
+		update camp_review set review_no = review_no+1 where review_no >= #{no}
+	</update>
+	
+	
+	<select id="getDeleteReviewCont" parameterType="int" resultType="reviewdto">
+		select * from camp_review_delete where review_no = #{no}
+	</select>
+	
+		<insert id="insertReview2" parameterType="reviewdto">
+				
+		insert into camp_review values(#{review_no},
+			#{review_id}, #{review_roomname}, 
+				#{review_title}, #{review_cont},
+				#{review_date},#{review_orderdate}, #{views})
+	</insert>
+	
+		<delete id="deleteDeleteReview" parameterType="int">
+		delete from camp_review_delete where review_no = #{no}
+	</delete>
+	
+
+</mapper>

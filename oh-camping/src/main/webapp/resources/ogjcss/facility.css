@@ -1,0 +1,205 @@
+@charset "UTF-8";
+
+.top{
+	position: relative;
+    padding-top: 150px;
+    text-align: center;
+    font-family: "Nanum Gothic";
+    background: url(../images/main_top.jpg)no-repeat 50% 50%;
+    background-size: 100%;
+}
+
+.top_sub{
+	position: relative;
+    padding-top: 150px;
+    text-align: center;
+    font-family: "Nanum Gothic";
+}
+
+.wrap_facil {
+    display: flex;
+    justify-content: space-between;
+    width: 1300px;
+    margin: 0 auto;
+    height: 40vw;
+    max-height: 600px;
+}
+
+.facil_block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 32%;
+}
+
+.wrap_facil_txt {
+    position: relative;
+    transition: opacity 300ms;
+    
+    
+}
+
+.facil_block .main_facil {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 49%;
+    color: white;
+}
+
+.facil_block2 .main_facil {
+    height: 100%;
+}
+
+.main_facilt_1 {
+	background-image: url("../images/bbq1.jpg");
+	background-size: cover;
+}
+.main_facilt_1_2 {
+	background-image: url("../images/bbq2.jpg");
+	background-size: cover;
+}
+.main_facilt_1_3 {
+	background-image: url("../images/bbq5.jpg");
+	background-size: cover;
+}
+.main_facilt_1_4 {
+	background-image: url("../images/bbq4.jpg");
+	background-size: cover;
+}
+.main_facilt_1_5 {
+	background-image: url("../images/bbq3.jpg");
+	background-size: cover;
+}
+
+.main_facilp_1 {
+	background-image: url("../images/pool5.jpg");
+	background-size: cover;
+}
+.main_facilp_1_2 {
+	background-image: url("../images/pool2.jpg");
+	background-size: cover;
+}
+.main_facilp_1_3 {
+	background-image: url("../images/pool5.jpg");
+	background-size: cover;
+}
+.main_facilp_1_4 {
+	background-image: url("../images/pool4.jpg");
+	background-size: cover;
+}
+.main_facilp_1_5 {
+	background-image: url("../images/pool1.jpg");
+	background-size: cover;
+}
+
+
+.main_facilv_1 {
+	background-image: url("../images/val1.jpg");
+	background-size: cover;
+}
+.main_facilv_1_2 {
+	background-image: url("../images/val2.jpg");
+	background-size: cover;
+}
+.main_facilv_1_3 {
+	background-image: url("../images/val5.jpg");
+	background-size: cover;
+}
+.main_facilv_1_4 {
+	background-image: url("../images/val4.jpg");
+	background-size: cover;
+}
+.main_facilv_1_5 {
+	background-image: url("../images/val3.jpg");
+	background-size: cover;
+}
+
+.main_facilpl_1 {
+	background-image: url("../images/play1.jpg");
+	background-size: cover;
+}
+.main_facilpl_1_2 {
+	background-image: url("../images/play2.jpg");
+	background-size: cover;
+}
+.main_facilpl_1_3 {
+	background-image: url("../images/play4.jpg");
+	background-size: cover;
+}
+.main_facilpl_1_4 {
+	background-image: url("../images/play5.jpg");
+	background-size: cover;
+}
+.main_facilpl_1_5 {
+	background-image: url("../images/play3.jpg");
+	background-size: cover;
+}
+
+.main_facils_1 {
+	background-image: url("../images/sauna1.jpg");
+	background-size: cover;
+}
+.main_facils_1_2 {
+	background-image: url("../images/sauna2.jpg");
+	background-size: cover;
+}
+.main_facils_1_3 {
+	background-image: url("../images/sauna4.jpg");
+	background-size: cover;
+}
+.main_facils_1_4 {
+	background-image: url("../images/sauna5.jpg");
+	background-size: cover;
+}
+.main_facils_1_5 {
+	background-image: url("../images/sauna3.jpg");
+	background-size: cover;
+}
+
+.facil_block .wrap_facil_txt h1 {
+    font-size: 25px;
+}
+
+.facil_block .wrap_facil_txt h2 {
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+a.btn_facil {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    background-color: #dfb99a;
+    transition: opacity 300ms;
+}
+
+.top h1 {
+    position: relative;
+    padding: 50px 0 0px 0;
+    font-size: 50px;
+    font-family: "Poiret One";
+        font-weight: bold;
+}
+
+.top h3 {
+    padding: 30px 0;
+    color: #dfb99a;
+}
+
+.top_sub h1 {
+    position: relative;
+    padding: 50px 0 0px 0;
+    font-size: 50px;
+    font-family: "Poiret One";
+        font-weight: bold;
+}
+
+.top_sub h3 {
+    padding: 30px 0;
+    color: #dfb99a;
+}

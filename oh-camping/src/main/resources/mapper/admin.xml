@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="campAdminDao">
+
+	<select id="adminIdCheck" parameterType="String" resultType="int">
+		select count(*) from camp_admin where admin_id = #{id}
+	</select>
+	
+	<select id="getAdminPassword" parameterType="String" resultType="string">
+		select admin_pwd from camp_admin where admin_id = #{id}
+	</select>
+	
+	<select id="getAdmin" parameterType="String" resultType="campAdminDto">
+		select * from camp_admin where admin_id = #{id}
+	</select>
+	
+
+</mapper>

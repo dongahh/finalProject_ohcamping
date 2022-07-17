@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="campPopupDao">
+	<select id="popupCount" resultType="int">
+		select count(*) from camp_popup
+	</select>
+	
+	<select id="popupList" parameterType="pageDto" resultType="campPopupDto">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by popup_no desc) rnum from camp_popup b)
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+	<insert id="popupInsert" parameterType="campPopupDto">
+		<selectKey resultType="int" keyProperty="popup_no" order="BEFORE">
+			select max(popup_no) from camp_popup
+		</selectKey>
+		insert into camp_popup values(#{popup_no} + 1,
+			#{popup_title}, #{popup_file}, #{popup_top}, 
+			#{popup_right}, sysdate, #{popup_use} )
+	</insert>
+	
+	
+	<select id="popupContent" parameterType="int" resultType="campPopupDto">
+		select * from camp_popup where popup_no = #{no}
+	</select>
+	
+	
+	<update id="popupModify" parameterType="campPopupDto">
+		update camp_popup set popup_title = #{popup_title},
+			popup_file = #{popup_file}, popup_top = #{popup_top}, 
+			popup_right = #{popup_right},  popup_use = #{popup_use}
+			where popup_no = #{popup_no}
+	</update>
+	
+	
+	<delete id="popupDel" parameterType="int">
+		delete from camp_popup where popup_no = #{no}
+	</delete>
+	
+	
+	<update id="popupSeq" parameterType="int">
+		<![CDATA[
+			update camp_popup set popup_no = popup_no - 1
+			where popup_no > #{no}
+		]]>	
+	</update>
+	
+	
+	<select id="popupListMain" resultType="campPopupDto">
+		<![CDATA[select * from camp_popup where popup_use = 1 order by popup_no desc]]>
+	</select>
+</mapper>

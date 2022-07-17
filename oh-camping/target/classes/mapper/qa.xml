@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="campQaDao">
+
+	<select id="qaListCount" resultType="int">
+		select count(*) from camp_qa
+	</select>
+	
+	
+	<select id="qaList" parameterType="pageDto" resultType="campQaDto">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by qa_group desc, qa_indent) rnum from camp_qa b)
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+
+	<insert id="qaWrite" parameterType="campQaDto">
+		<selectKey resultType="int" keyProperty="qa_no" order="BEFORE">
+			select max(qa_no) from camp_qa
+		</selectKey>
+		insert into camp_qa values(#{qa_no} + 1,
+			#{qa_writer}, #{qa_userid}, 
+				#{qa_type}, #{qa_title}, #{qa_cont}, 
+				sysdate, default, #{qa_no} + 1, 0)
+	</insert>
+	
+	
+	<update id="qaRead" parameterType="int">
+		update camp_qa set qa_hit = qa_hit + 1
+			where qa_no = #{no}
+	</update>
+	
+	
+	<select id="qaContent" parameterType="int" resultType="campQaDto">
+		select * from camp_qa where qa_no = #{no}
+	</select>
+	
+	
+	<update id="qaModify" parameterType="campQaDto">
+		update camp_qa set qa_title = #{qa_title},
+			qa_cont = #{qa_cont} 
+			where qa_no = #{qa_no}
+	</update>
+	
+	
+	<delete id="qaDel" parameterType="int">
+		delete from camp_qa where qa_no = #{no}
+	</delete>
+	
+	<delete id="qaUserDel" parameterType="int">
+		delete from camp_qa where qa_group = #{no}
+	</delete>
+	
+	
+	<update id="qaSeq" parameterType="int">
+		<![CDATA[
+			update camp_qa set qa_no = qa_no - 1,
+			qa_group = qa_group - 1
+			where qa_no > #{no}
+		]]>	
+	</update>
+	
+	
+	<insert id="qaReply" parameterType="campQaDto">
+		<selectKey resultType="int" keyProperty="qa_no" order="BEFORE">
+			select max(qa_no) from camp_qa
+		</selectKey>
+		insert into camp_qa values(#{qa_no} + 1,
+			#{qa_writer}, #{qa_userid}, 
+				#{qa_type}, #{qa_title}, #{qa_cont}, 
+				sysdate, default, #{qa_group}, #{qa_indent} + 1)
+	</insert>
+	
+	
+	
+	<select id="qaTitle" resultType="int">
+		select count(*) from camp_qa
+			where qa_title like '%' || #{keyword} || '%'
+	</select>
+	
+	
+	<select id="qaCont" resultType="int">
+		select count(*) from camp_qa
+			where qa_cont like '%' || #{keyword} || '%'
+	</select>
+	
+	
+	<select id="qaTitle_cont" resultType="int">
+		select count(*) from camp_qa
+			where qa_title like '%' || #{keyword} || '%' or
+			    qa_cont like '%' || #{keyword} || '%'
+	</select>
+	
+	
+	<select id="qaWriter" resultType="int">
+		select count(*) from camp_qa
+			where qa_writer like '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="qaTitle1" parameterType="pageDto" resultType="campQaDto">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by qa_group desc, qa_indent) rnum from camp_qa b
+					where qa_title like '%' || #{keyword} || '%')
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+	
+	<select id="qaCont1" parameterType="pageDto" resultType="campQaDto">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by qa_group desc, qa_indent) rnum from camp_qa b
+					where qa_cont like '%' || #{keyword} || '%')
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+	
+	<select id="qaTitle_cont1" parameterType="pageDto" resultType="campQaDto">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by qa_group desc, qa_indent) rnum from camp_qa b
+					where qa_title like '%' || #{keyword} || '%' or 
+					qa_cont like '%' || #{keyword} || '%')
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+	
+	<select id="qaWriter1" parameterType="pageDto" resultType="campQaDto">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by qa_group desc, qa_indent) rnum from camp_qa b
+					where qa_writer like '%' || #{keyword} || '%')
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+</mapper>

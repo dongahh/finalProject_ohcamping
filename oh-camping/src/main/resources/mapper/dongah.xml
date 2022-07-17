@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="CDA_campingDAO">
+    	
+    	<!-- test -->
+    	<select id="reserveRoomList" parameterType="String" resultType="CDA_roomDTO">
+    		select * from camp_room where room_resdate = #{dayday} order by room_possible, room_name
+    	</select>
+    	<!-- test -->
+    	
+    	<select id="reserveRoomInfo" parameterType="Long" resultType="CDA_roomDTO">
+    		select * from camp_room where room_no=#{num}
+    	</select>
+    	
+    	
+    	<!-- sesstionid 가져오기 -->
+    	<select id="testid" parameterType="String" resultType="campMemberDto">
+    		select * from camp_member where mem_id=#{id}
+    	</select> 	
+    	<!--  -->
+    	
+    	<!-- 결제 완료 -->
+    	<select id="getmemno" parameterType="String" resultType="int">
+    		select member_no from camp_member where mem_id=#{id}
+    	</select>
+    	
+    	<insert id="reservePayment" parameterType="CDA_paymentDTO">
+    		insert into camp_payment values((select max(payment_no) from camp_payment)+1,
+    		#{payment_memno},#{payment_pname},#{payment_pphone},#{payment_price},sysdate,#{payment_request})
+    	</insert>
+    	
+    	<select id="getpaymentno" resultType="int">
+    		select max(payment_no) from camp_payment
+    	</select>
+    	 <insert id="orderDetail" parameterType="CDA_paymentDTO">
+    		insert into camp_paymentDetail values   		
+    			((select max(paymentDetail_no) from camp_paymentDetail)+1,
+    			#{paymentDetail_paymentno}, #{paymentDetail_roomno}, #{paymentDetail_people},#{paymentDetail_price} )
+	
+    	</insert> 
+    	
+    	<update id="roomimposs" parameterType="int">
+    		update camp_room set ROOM_POSSIBLE = 1 where ROOM_NO = #{no}
+    	</update>
+    	
+    	
+    	<!-- 예약취소 -->
+		<delete id="detailRemove" parameterType="int">
+			delete from camp_paymentdetail where PAYMENTDETAIL_PAYMENTNO=#{no}
+		
+		</delete>
+		
+		<delete id="paymentRemove" parameterType="int">
+			delete from camp_payment where PAYMENT_NO=#{no}
+		
+		</delete>
+		
+		<select id="getroomno" parameterType="int" resultType="int">
+			select paymentDetail_roomno from camp_paymentDetail where paymentDetail_paymentno=#{no}
+		</select>
+		
+		<update id="roomposs" parameterType="int">
+    		update camp_room set room_possible = 0 where room_no = #{no}
+    	</update>
+    
+    
+        <!-- 동찬 - 예약확인 로직 -->
+        <select id="resnoCheck" parameterType="int" resultType="int">
+            select count(*) from camp_payment where payment_no = #{no}
+        </select>
+        
+        <select id="paymentinfo" parameterType="int" resultType="CDA_paymentDTO">
+            select * from camp_payment where payment_no = #{no}
+        </select>
+        
+        <select id="detailInfo" parameterType="int" resultType="CDA_paymentdetailDTO">
+            select * from camp_paymentdetail where paymentdetail_paymentno = #{no}
+        </select>
+    	
+    
+ </mapper>

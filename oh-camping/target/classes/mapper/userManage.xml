@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--     
+ 	memberDao = com.pro.shim.model.member.CampMemberDAO   
+ 	memberDto = com.pro.shim.model.member.CampMemberDTO
+ 	shimpageDto = com.pro.shim.model.CampshimpageDto
+ 	reserveDto = com.pro.shim.model.reserve.CampReserveDTO
+ -->
+     
+<mapper namespace="memberDao">
+
+	<!-- 전체 회원 수 -->
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM CAMP_MEMBER
+	</select>
+
+	<!-- 회원 전체 조회 -->
+	<select id="allList" parameterType="shimpageDto" resultType="memberDto">
+		<![CDATA[
+			SELECT * FROM
+			 (SELECT M.*, ROW_NUMBER() OVER(ORDER BY MEMBER_NO DESC) RNUM FROM CAMP_MEMBER M)
+			 	WHERE RNUM >= #{startNo} AND RNUM <= #{endNo}
+	 	]]>
+	</select>
+	
+	<!-- 회원 정렬 조회 -->
+	<select id="sort_no" parameterType="shimpageDto" resultType="memberDto">
+		<![CDATA[
+			SELECT * FROM
+			 (SELECT M.*, ROW_NUMBER() OVER(ORDER BY MEMBER_NO ASC) RNUM FROM CAMP_MEMBER M)
+			 	WHERE RNUM >= #{startNo} AND RNUM <= #{endNo}
+	 	]]>
+	</select>
+	
+	<select id="sort_id" parameterType="shimpageDto" resultType="memberDto">
+		<![CDATA[
+			SELECT * FROM
+			 (SELECT M.*, ROW_NUMBER() OVER(ORDER BY MEM_ID ASC) RNUM FROM CAMP_MEMBER M)
+			 	WHERE RNUM >= #{startNo} AND RNUM <= #{endNo}
+	 	]]>
+	</select>
+	
+	<select id="sort_name" parameterType="shimpageDto" resultType="memberDto">
+		<![CDATA[
+			SELECT * FROM
+			 (SELECT M.*, ROW_NUMBER() OVER(ORDER BY MEM_NAME ASC) RNUM FROM CAMP_MEMBER M)
+			 	WHERE RNUM >= #{startNo} AND RNUM <= #{endNo}
+	 	]]>
+	</select>
+	
+	<select id="sort_email" parameterType="shimpageDto" resultType="memberDto">
+		<![CDATA[
+			SELECT * FROM
+			 (SELECT M.*, ROW_NUMBER() OVER(ORDER BY MEM_EMAIL ASC) RNUM FROM CAMP_MEMBER M)
+			 	WHERE RNUM >= #{startNo} AND RNUM <= #{endNo}
+	 	]]>
+	</select>
+	
+	<!-- 검색 회원 수 -->
+	<select id="no_cnt" resultType="int">
+		SELECT COUNT(*) FROM CAMP_MEMBER WHERE MEMBER_NO LIKE '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="id_cnt" resultType="int">
+		SELECT COUNT(*) FROM CAMP_MEMBER WHERE MEM_ID LIKE '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="name_cnt" resultType="int">
+		SELECT COUNT(*) FROM CAMP_MEMBER WHERE MEM_NAME LIKE '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="email_cnt" resultType="int">
+		SELECT COUNT(*) FROM CAMP_MEMBER WHERE MEM_EMAIL LIKE '%' || #{keyword} || '%'
+	</select>
+
+	<!-- 검색 회원 조회 -->
+	<select id="no" parameterType="shimpageDto" resultType="memberDto">
+		<![CDATA[
+			SELECT * FROM
+				(SELECT M.*, ROW_NUMBER() OVER(ORDER BY MEMBER_NO DESC) RNUM FROM CAMP_MEMBER M
+					WHERE MEMBER_NO LIKE '%' || #{keyword} || '%') WHERE RNUM >= #{startNo} AND RNUM <= #{endNo}
+		]]>
+	</select>
+	
+	<select id="id" parameterType="shimpageDto" resultType="memberDto">
+		<![CDATA[
+			SELECT * FROM
+				(SELECT M.*, ROW_NUMBER() OVER(ORDER BY MEMBER_NO DESC) RNUM FROM CAMP_MEMBER M
+					WHERE MEM_ID LIKE '%' || #{keyword} || '%') WHERE RNUM >= #{startNo} AND RNUM <= #{endNo}
+		]]>
+	</select>
+	
+	<select id="name" parameterType="shimpageDto" resultType="memberDto">
+		<![CDATA[
+			SELECT * FROM
+				(SELECT M.*, ROW_NUMBER() OVER(ORDER BY MEMBER_NO DESC) RNUM FROM CAMP_MEMBER M
+					WHERE MEM_NAME LIKE '%' || #{keyword} || '%') WHERE RNUM >= #{startNo} AND RNUM <= #{endNo}
+		]]>
+	</select>
+	
+	<select id="email" parameterType="shimpageDto" resultType="memberDto">
+		<![CDATA[
+			SELECT * FROM
+				(SELECT M.*, ROW_NUMBER() OVER(ORDER BY MEMBER_NO DESC) RNUM FROM CAMP_MEMBER M
+					WHERE MEM_EMAIL LIKE '%' || #{keyword} || '%') WHERE RNUM >= #{startNo} AND RNUM <= #{endNo}
+		]]>
+	</select>
+	
+	<!-- 회원 정보 -->
+	<select id="detail" parameterType="int" resultType="memberDto">
+		SELECT * FROM CAMP_MEMBER WHERE MEMBER_NO = #{member_no}
+	</select>
+	
+	<!-- 회원 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM CAMP_MEMBER WHERE MEMBER_NO = #{num}	
+	</delete>
+	
+	<!-- 시퀀스 갱신 -->
+	<update id="seq" parameterType="int">
+		UPDATE CAMP_MEMBER SET MEMBER_NO = MEMBER_NO - 1 WHERE MEMBER_NO > #{num}
+	</update>
+	
+	<!-- 해당 회원 예약 수 -->
+	<select id="reserveCnt" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM RESERVE_ROOM WHERE MEM_ID = #{id}
+	</select>
+	
+	<!-- 해당 회원 예약 목록 -->
+	<select id="reserveList" parameterType="Map" resultType="reserveDto">
+		SELECT * FROM 
+		(SELECT ROWNUM NUM, R.* FROM RESERVE_ROOM R WHERE MEM_ID = #{id}) 
+		WHERE NUM BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<!-- 예약 상세 내역 -->
+	<select id="reserveCont" parameterType="int" resultType="reserveDto">
+		SELECT * FROM RESERVE_ROOM WHERE ROOM_NO = #{room_no}
+	</select>
+	
+	<!-- 해당 회원 예약 수 -->
+	<select id="inquiryCnt" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM CAMP_QA WHERE QA_USERID = #{id}
+	</select>
+	
+	<!-- 해당 회원 문의 내역 -->
+	<select id="inquiryList" parameterType="Map" resultType="inquiryDto">
+		<![CDATA[
+			SELECT * FROM
+				(SELECT Q.*, ROW_NUMBER() OVER(ORDER BY QA_NO DESC) RNUM FROM CAMP_QA Q
+					WHERE QA_USERID = #{id}) WHERE RNUM >= #{startNo} AND RNUM <= #{endNo}
+		]]>					
+	</select>
+	
+	<!-- 해당 문의 상세 정보 -->
+	<select id="inquiryCont" parameterType="int" resultType="inquiryDto">
+		SELECT * FROM CAMP_QA WHERE QA_NO = #{no}
+	</select>
+	
+	<!-- 해당 문의 내역 삭제 -->
+	<delete id="inquiryDel" parameterType="int">
+		DELETE FROM CAMP_QA WHERE QA_NO = #{no}
+	</delete>
+	
+	<!-- 해당 문의 내역 삭제 후 시퀀스 갱신 -->
+	<update id="inquirySeq">
+		UPDATE CAMP_QA SET QA_NO = QA_NO -1 WHERE QA_NO > #{no}
+	</update>
+	
+	<!-- 아이디 중복 체크를 위한 전체 ID 조회 -->
+	<select id="allMemId" parameterType="int" resultType="memberDto">
+		SELECT MEM_ID FROM CAMP_MEMBER WHERE MEMBER_NO != #{no}
+	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="modifyMember" parameterType="Map">
+		UPDATE CAMP_MEMBER SET 
+		MEM_ID = #{id}, MEM_PWD = #{pwd}, MEM_NAME = #{name}, MEM_PHONE = #{phone}, MEM_EMAIL = #{email} 
+		WHERE MEMBER_NO = #{num}
+	</update>
+</mapper>
+  
+  

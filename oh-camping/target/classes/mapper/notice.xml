@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="campNoticeDao">
+	<select id="noticeListCount" resultType="int">
+		select count(*) from camp_notice
+	</select>
+	
+	<select id="noticeList" parameterType="pageDto" resultType="campNoticeDto">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by notice_no desc) rnum from camp_notice b)
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+	<update id="noticeRead" parameterType="int">
+		update camp_notice set notice_hit = notice_hit + 1
+			where notice_no = #{no}
+	</update>
+	
+	
+	<select id="noticeContent" parameterType="int" resultType="campNoticeDto">
+		select * from camp_notice where notice_no = #{no}
+	</select>
+	
+	
+	<!-- 검색 -->
+	<select id="title" resultType="int">
+		select count(*) from camp_notice
+			where notice_title like '%' || #{keyword} || '%'
+	</select>
+	
+	
+	<select id="cont" resultType="int">
+		select count(*) from camp_notice
+			where notice_cont like '%' || #{keyword} || '%'
+	</select>
+	
+	
+	<select id="title_cont" resultType="int">
+		select count(*) from camp_notice
+			where notice_title like '%' || #{keyword} || '%' or
+			    notice_cont like '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="title1" parameterType="pageDto" resultType="campNoticeDto">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by notice_no desc) rnum from camp_notice b
+					where notice_title like '%' || #{keyword} || '%')
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+	<select id="cont1" parameterType="pageDto" resultType="campNoticeDto">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by notice_no desc) rnum from camp_notice b
+					where notice_cont like '%' || #{keyword} || '%')
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+	<select id="title_cont1" parameterType="pageDto" resultType="campNoticeDto">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by notice_no desc) rnum from camp_notice b
+					where notice_title like '%' || #{keyword} || '%' or 
+					notice_cont like '%' || #{keyword} || '%')
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+
+</mapper>

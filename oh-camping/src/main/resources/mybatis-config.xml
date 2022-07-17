@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+  
+  <configuration>
+  	<typeAliases>
+  		<typeAlias type="com.pro.yuna.CampAdminDAO" alias="campAdminDao"/>
+  		<typeAlias type="com.pro.yuna.CampAdminDTO" alias="campAdminDto"/>
+  		<typeAlias type="com.pro.yuna.CampMemberDAO" alias="campMemberDao"/>
+  		<typeAlias type="com.pro.yuna.CampMemberDTO" alias="campMemberDto"/>
+  		<typeAlias type="com.pro.yuna.CampNoticeDAO" alias="campNoticeDao"/>
+  		<typeAlias type="com.pro.yuna.CampNoticeDTO" alias="campNoticeDto"/>
+  		<typeAlias type="com.pro.yuna.CampQaDAO" alias="campQaDao"/>
+  		<typeAlias type="com.pro.yuna.CampQaDTO" alias="campQaDto"/>
+  		<typeAlias type="com.pro.yuna.CampPopupDTO" alias="campPopupDto"/>
+  		<typeAlias type="com.pro.yuna.CampPopupDAO" alias="campPopupDao"/>
+  		<typeAlias type="com.pro.yuna.PageDTO" alias="pageDto"/>
+  		
+  		<!--  예약 경로-->
+  		<typeAlias type="com.pro.kdc.campingDAO" alias="campdao"/>
+		<typeAlias type="com.pro.kdc.campingDTO" alias="campdto"/>
+		<typeAlias type="com.pro.cda.CDA_campingDAO" alias="CDA_campingDAO"/>
+		<typeAlias type="com.pro.cda.CDA_roomDTO" alias="CDA_roomDTO"/>
+		<typeAlias type="com.pro.cda.CalendarDTO" alias="CalendarDTO"/>
+		<typeAlias type="com.pro.cda.CDA_paymentdetailDTO" alias="CDA_paymentdetailDTO"/>
+		<typeAlias type="com.pro.cda.CDA_paymentDTO" alias="CDA_paymentDTO"/>
+		<typeAlias type="com.pro.kdc.adminNoticeDAO" alias="adminNoticeDAO"/>
+		<typeAlias type="com.pro.kdc.adminNoticeDTO" alias="adminNoticeDTO"/>
+		<typeAlias type="com.pro.kdc.noticePageDTO" alias="noticepageDto"/>
+		
+		<!-- 리뷰 -->
+		<typeAlias type="com.pro.ogjmodel.ReviewDAO" alias="reviewdao"/>
+		<typeAlias type="com.pro.ogjmodel.ReviewDTO" alias="reviewdto"/>
+		<typeAlias type="com.pro.ogjmodel.ReviewPageDTO" alias="reviewpagedto"/>
+		<typeAlias type="com.pro.ogjmodel.ReviewSubDTO" alias="reviewsubdto"/>
+		<typeAlias type="com.pro.ogjmodel.ReviewSubDTO2" alias="reviewsubdto2"/>
+		<typeAlias type="com.pro.ogjmodel.ReviewSubDTO3" alias="reviewsubdto3"/>
+		
+		<!-- 심규복 -->
+		<!-- 회원 관리 -->
+		<typeAlias type="com.pro.shim.model.member.CampMemberDAO" alias="memberDao" />
+		<typeAlias type="com.pro.shim.model.member.CampMemberDTO" alias="memberDto" />
+		<typeAlias type="com.pro.shim.model.CampPageDTO" alias="shimpageDto" />
+		
+		<!-- 매출 관리 -->
+		<typeAlias type="com.pro.shim.model.sales.CampSalesDAO" alias="salesDao" />
+		<typeAlias type="com.pro.shim.model.sales.CampSalesDTO" alias="salesDto" />
+		
+		<!-- 예약 관리 -->
+		<typeAlias type="com.pro.shim.model.reserve.CampReserveDAO" alias="reserveDao" />
+		<typeAlias type="com.pro.shim.model.reserve.CampReserveDTO" alias="reserveDto" />
+		
+		<!-- 문의 관리  -->
+		<typeAlias type="com.pro.shim.model.member.CampInquiryDTO" alias="inquiryDto" />
+		
+		
+		<!-- 관리자 qa -->		
+		<typeAlias type="com.pro.cda.AdminQaDTO" alias="adminqadto"/>
+		<typeAlias type="com.pro.cda.AdminQaDAO" alias="adminqadao"/>
+  	</typeAliases>
+  </configuration>

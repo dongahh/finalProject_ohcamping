@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="campMemberDao">
+
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(*) from camp_member where mem_id = #{id}
+	</select>
+	
+	<insert id="joinMember" parameterType="campMemberDto">
+		<selectKey resultType="int" keyProperty="member_no" order="BEFORE">
+			select max(member_no) from camp_member
+		</selectKey>
+		insert into camp_member values(#{member_no} + 1, #{mem_id}, #{mem_pwd}, 
+		#{mem_name}, #{mem_phone}, #{mem_email})
+	</insert>
+	
+	<select id="emailCheck" parameterType="String" resultType="string">
+		select mem_email from camp_member where mem_id = #{id}
+	</select>
+	
+	<select id="getPassword" parameterType="String" resultType="string">
+		select mem_pwd from camp_member where mem_id = #{id}
+	</select>
+	
+	<select id="getMember" parameterType="String" resultType="campMemberDto">
+		select * from camp_member where mem_id = #{id}
+	</select>
+	
+
+</mapper>
